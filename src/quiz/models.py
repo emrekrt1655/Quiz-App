@@ -13,13 +13,16 @@ class Category(models.Model):
     
 class Quiz(models.Model):
     title = models.CharField(max_length = 100, verbose_name= "Quiz Title")
-    category = models.ForeignKey(Category, on_delete= models.CASCADE)
+    category = models.ForeignKey(Category, on_delete= models.CASCADE, default=1)
     date_created = models.DateTimeField(auto_now_add= True)
     
     def __str__(self):
         return self.title
     class Meta:
         verbose_name_plural = "Quizes"
+    
+    def question_count(self):
+        return self.question_set.count()
         
 class Update(models.Model):
     updated = models.DateTimeField(auto_now=True)
